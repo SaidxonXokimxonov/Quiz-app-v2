@@ -1,4 +1,3 @@
-import { addSyntheticLeadingComment, createEmitAndSemanticDiagnosticsBuilderProgram } from 'typescript';
 import { state } from './constants.js';
 import { questionBox, timeBox } from './elements.js';
 
@@ -57,7 +56,7 @@ function randomAnswer() {
       answers[i].textContent = `${wrongArr[wrongIdx++]}`;
     }
   }
-}
+ }
 
 function startTimer() {
   setInterval(() => {
@@ -73,6 +72,7 @@ function startTimer() {
         state.indicatorHistory.splice(0, state.indicatorHistory.length)
         state.timeLimit = 10
         renderIndicator()
+        state.correctAnswer = 0
     }
     timeBox.innerText = state.timeLimit.toString()
     questionBox.innerText = `${state.indicatorHistory.length + 1}/ 10`
@@ -87,7 +87,6 @@ function renderIndicator() {
             <div class='w-10 h-10 ${item}'></div>
         `
     }).join('')
-
     indicator.innerHTML = res
 }
 
@@ -108,10 +107,10 @@ answers.forEach(btn => {
   });
 });
 
-randomAnswer();
-renderScreen();
 
 function init() {
+  randomAnswer();
+  renderScreen();
   startTimer();
 }
 
